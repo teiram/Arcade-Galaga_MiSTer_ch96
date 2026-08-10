@@ -18,6 +18,11 @@
 //  with this program; if not, write to the Free Software Foundation, Inc.,
 //  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //============================================================================
+module emu(
+    `include "sys/emu_ports.vh"
+);
+
+/*
 module emu
 (
 	//Master input clock
@@ -174,6 +179,7 @@ module emu
 
 	input         OSD_STATUS
 );
+*/
 
 assign {SD_SCK, SD_MOSI, SD_CS} = 'Z;
 assign {UART_RTS, UART_TXD, UART_DTR} = 0;
@@ -192,7 +198,9 @@ assign HDMI_BLACKOUT = 0;
 assign HDMI_BOB_DEINT = 0;
 
 assign VGA_DISABLE = 0;
+`ifdef MISTER_FB
 assign FB_FORCE_BLANK = 0;
+`endif
 
 wire [1:0] ar = status[23:22];
 
@@ -342,7 +350,11 @@ wire [1:0] b;
 wire rotate_ccw = flip_screen;
 wire flip = 0;
 wire video_rotated;
+`ifdef MISTER_FB
 screen_rotate screen_rotate (.*);
+`else
+assign video_rotated = 1'b0;
+`endif
 
 arcade_video #(288,8) arcade_video
 (
