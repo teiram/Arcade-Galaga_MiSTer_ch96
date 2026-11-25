@@ -19,7 +19,7 @@
 //  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //============================================================================
 module emu(
-    `include "sys/emu_ports.vh"
+    `include "template/sys/emu_ports.vh"
 );
 
 /*
